@@ -36,6 +36,11 @@ main{max-width:760px;margin:0 auto;padding:8px 16px}
 .card>h2{margin:0 0 4px;font-size:1.12rem;display:flex;gap:10px;align-items:center}
 .step{background:var(--brand);color:var(--brand-ink);border-radius:50%;width:26px;height:26px;display:inline-grid;place-items:center;font-size:.85rem;flex:none}
 .hint{color:var(--muted);font-size:.9rem;margin:0 0 10px}
+.i{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-left:6px;border-radius:50%;border:1.5px solid var(--brand);color:var(--brand-text);font:italic 700 13px/1 Georgia,serif;vertical-align:middle;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+.i[aria-expanded="true"]{background:var(--brand);color:var(--brand-ink)}
+.i:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.infoBox{background:var(--brand-soft);color:var(--ink);border-radius:10px;padding:10px 12px;margin:6px 0 0;font-size:.88rem;font-weight:400;line-height:1.45}
+.infoBox b{font-weight:600}
 label.f{display:block;font-weight:600;font-size:.92rem;margin:12px 0 0;min-width:0}
 .req{color:var(--high)}
 input[type=text],input[type=date],input[type=time],input[type=number],select,textarea{width:100%;margin-top:6px;font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-height:44px}
@@ -192,6 +197,10 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin:20px 0}
       <tr><td><b>Likelihood</b></td><td>1 Unlikely: could happen, but rarely · 2 Possible: could happen this term · 3 Likely: expected to happen</td></tr>
       <tr><td><b>Severity</b></td><td>1 Minor: first aid only · 2 Serious: hospital treatment · 3 Major: life-changing injury or death</td></tr>
       <tr><td><b>Risk</b></td><td>Likelihood × Severity. 1–2 Low: keep controls, review each term · 3–4 Medium: add controls within 4 weeks · 6–9 High: act before the next session, or stop the activity</td></tr>
+      <tr><td><b>In place / Partly / Not yet / N/A</b></td><td>Are the listed controls actually happening at your branch today? Choose N/A only if the hazard can't happen at your site, for example no wudu area.</td></tr>
+      <tr><td><b>Controls</b></td><td>You can edit this box to describe what your branch really does, if it differs from the suggested wording.</td></tr>
+      <tr><td><b>Extra action, owner, by when</b></td><td>Anything still missing, who will sort it, and the deadline. Leave blank if the controls are fully in place.</td></tr>
+      <tr><td><b>Risk after action</b></td><td>Rate the risk again as it will be once the extra action is done. If there's no extra action, you can leave it blank.</td></tr>
     </table>
   </details>
   <div id="cats"></div>
@@ -236,14 +245,14 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin:20px 0}
     </label>
   </div>
   <label class="f">Staff and volunteers briefed (names)<textarea name="briefed" rows="2"></textarea></label>
-  <div class="f" style="font-weight:600;font-size:.92rem;margin-top:12px">Signature (branch lead)</div>
+  <div class="f" id="sigLabel" style="font-weight:600;font-size:.92rem;margin-top:12px">Signature (branch lead)</div>
   <div class="sig-wrap"><canvas id="sig" aria-label="Signature pad"></canvas></div>
   <div class="row" style="margin-top:6px"><span class="muted" style="font-size:.85rem">Sign with your finger</span><button type="button" class="btn small" id="sigClear">Clear signature</button></div>
 </section>
 
 <div class="confirmBox" id="resetBox"></div>
 </form>
-<footer>Your answers stay on this device. Nothing is uploaded. Send the PDF to the office when you're done.</footer>
+<footer>Your answers stay on this device. Nothing is uploaded. When you're done, email the PDF to the office at <a href="mailto:management@safaracademy.org" style="color:inherit">management@safaracademy.org</a>.</footer>
 </main>
 
 <div class="bar"><div class="in">
@@ -255,6 +264,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin:20px 0}
   <div class="panel">
     <h2 id="sheetTitle">PDF ready</h2>
     <p class="muted" id="sheetName" style="margin:0;word-break:break-all"></p>
+    <p style="margin:10px 0 0">Send it to the office at <a href="mailto:management@safaracademy.org?subject=Weekend%20maktab%20risk%20assessment">management@safaracademy.org</a>. If you share by email, add this address as the recipient.</p>
     <div class="actions">
       <button type="button" class="btn primary block" id="shareBtn">Share PDF (WhatsApp, email…)</button>
       <button type="button" class="btn block" id="dlBtn">Download PDF</button>
@@ -302,12 +312,14 @@ var CATS=[
   ['Shoes, bags and coats left in walkways','Everyone','Set place for shoes and bags, away from exits and stairs. Walkways checked clear at the start.'],
   ['Running on stairs or in corridors','Pupils','Pupils walk in lines with an adult. Clear rules on running indoors.'],
   ['Damaged furniture, loose carpet or broken fittings','Everyone','Visual check of rooms before each session. Faults reported to the venue in writing and the area taken out of use until fixed.'],
-  ['Heavy furniture or stacked chairs falling','Pupils','Pupils don\'t move heavy tables or stacks. Chairs stacked no higher than agreed.']]},
+  ['Heavy furniture or stacked chairs falling','Pupils','Pupils don\'t move heavy tables or stacks. Chairs stacked no higher than agreed.'],
+  ['Lift out of order, or someone stuck in the lift','Pupils, staff, parents with mobility needs','Pupils use the lift only if they need to, and always with an adult. Venue\'s lift engineer and emergency number known. Lifts never used during a fire. Ground-floor room available for anyone who can\'t use the stairs. Parents of pupils with mobility needs told if the lift is down. Faults reported to the venue in writing.']]},
  {t:'Wudu areas, toilets and hygiene',h:[
   ['Scalding from hot water taps','Pupils','Check the water temperature at wudu taps and sinks. Ask the venue to fit or confirm thermostatic mixing valves. Younger pupils supervised during wudu.'],
   ['Slipping during or after wudu','Pupils','Non-slip mats. Pupils sit on the wudu stools, not on the edge. Floors mopped regularly.'],
   ['Supervision gaps in toilets','Pupils','Separate boys\' and girls\' toilets where possible. Adult nearby, never inside with a child. Pupils not using toilets shared with adult members of the public unless supervised.'],
-  ['Spread of illness','Everyone','Soap and paper towels stocked. Hand sanitiser at entrances and wash points, with handwashing posters. Supplies checked and topped up each session. Handwashing covered in staff and pupil briefings. Unwell pupils sent home. Procedure for cleaning up bodily fluids, with gloves and a spill kit.']]},
+  ['Spread of illness','Everyone','Soap and paper towels stocked. Hand sanitiser at entrances and wash points, with handwashing posters. Supplies checked and topped up each session. Handwashing covered in staff and pupil briefings. Unwell pupils sent home. Procedure for cleaning up bodily fluids, with gloves and a spill kit.'],
+  ['Pests (rats, mice, maggots or insects) in rooms, food or bins','Everyone','Sightings reported to the venue in writing, with a request for their pest control visit and record. No food left out overnight. Bins lidded and emptied each session. Eating only in a set area. Rooms checked for droppings or maggots before pupils enter. Affected room taken out of use until treated.']]},
  {t:'Equipment, electricity and food',h:[
   ['Electric shock or fire from our own equipment (projectors, heaters, kettles)','Everyone','Our equipment PAT tested. Visual check of cables and plugs. No daisy-chained extension leads. Cables taped down or kept out of walkways.'],
   ['Portable heaters','Pupils','Avoid if possible. If used: guarded, away from curtains and coats, never left on unattended.'],
@@ -331,11 +343,12 @@ var CATS=[
  {t:'Weather and outdoor areas',h:[
   ['Ice or snow at arrival and home time','Everyone','Check the routes before opening. Ask the venue to grit. Plan for cancelling sessions and telling parents.'],
   ['Outdoor play at breaks (falls, equipment, leaving site)','Pupils','Only use areas agreed with the venue. Boundaries checked. At least one adult per area.'],
-  ['Hot weather','Pupils','Water available. Rooms ventilated. Shade at breaks.']]}
+  ['Hot weather','Pupils','Water available. Rooms ventilated. Shade at breaks.'],
+  ['Rooms too cold for teaching','Pupils, staff','Venue agrees to have the heating on before the session starts. Temperature checked before pupils arrive. Pupils may keep coats on. Class moved to a warmer room if needed. Problems reported to the venue in writing. Any portable heaters follow the Portable heaters hazard.']]}
 ];
 var SCHOOL=['Hire agreement read, covering which rooms, toilets and outdoor areas we may use','School\'s weekend fire plan, alarm system and assembly point confirmed','Who opens, locks up and sets the alarm, and their phone number on the day','Out-of-bounds areas (labs, PE equipment, kitchens, roof access) locked or marked','School equipment we may and may not use (projectors, sports kit)','Times and areas of other weekend hirers, and car park rules for all users','Where the school\'s defibrillator is, and whether we can use it','Damage and fault reporting route','Rooms put back as found, with a check before we leave','School\'s own risk assessment and health and safety policy received','Copy of our public liability insurance certificate given to the school'];
 var MOSQUE=['Agreement with the mosque committee on which rooms and times we use','Dhuhr in winter (about 11.50am to 12.15pm, November to February): congregants arriving during dismissal, and pupils kept out of the prayer hall and wudu areas','Separating pupils from adult congregants, especially in toilets, wudu areas and corridors','Fire plan, alarm and assembly point confirmed (some mosques have no linked alarm, so agree how to raise one)','Weekend janazah, nikah or other mosque events: how we hear about them in time, and keeping pupils apart from adult crowds in corridors, toilets and the car park. Eid on a weekend: closure agreed and parents told in good time','Wudu areas: water temperature, floor grip, supervision of younger pupils','Footwear areas kept clear of exits and stairs','Mosque\'s safeguarding policy and DSL, and how they link with ours','Who else holds keys, and who may enter during our sessions','Where the defibrillator is, if there is one','Mosque\'s own risk assessment and health and safety policy received','Copy of our public liability insurance certificate given to the mosque'];
-var PRE=['Fire exits and escape routes clear and unlocked','First aider, fire marshal and DSL (or deputy on call) named for today','First aid kit and medicines in place','Rooms, toilets and wudu areas checked: floors dry, nothing broken, water not too hot','Enough adults for the expected number of pupils','Car park duty and walking route set up (cones, hi-vis)','Registers, collection lists and medical and allergy lists to hand','Visitor sign-in ready, and outside doors supervised','Know who else is on site today','Hand sanitiser, soap and paper towels stocked','Break zones and supervision rota set for today','All staff and volunteers wearing lanyards'];
+var PRE=['Fire exits and escape routes clear and unlocked','First aider, fire marshal and DSL (or deputy on call) named for today','First aid kit and medicines in place','Rooms, toilets and wudu areas checked: floors dry, nothing broken, water not too hot','Enough adults for the expected number of pupils','Car park duty and walking route set up (cones, hi-vis)','Registers, collection lists and medical and allergy lists to hand','Visitor sign-in ready, and outside doors supervised','Know who else is on site today','Hand sanitiser, soap and paper towels stocked','Break zones and supervision rota set for today','All staff and volunteers wearing lanyards','Rooms warm enough, no signs of pests, and lift working (if we use one)'];
 /* Control wording before the Nov 2026 update, so saved drafts pick up the new wording unless the user edited it */
 var HZ_ALIAS={'Ice or snow at arrival and home time':'Ice, snow or darkness at arrival and home time'};
 var OLD_CTRL={'Ice or snow at arrival and home time':'Check the routes before opening. Ask the venue to grit. Lighting checked for winter afternoons. Plan for cancelling sessions and telling parents.',"Crowding at entrances and on stairs": "Staggered start and finish by year group. Parents wait at a set point, not in corridors. One-way flow where possible.", "Too few adults for the number of children": "Set minimum ratio for each age group. At least two adults in the building at all times. Register taken at the start, after breaks and at the end.", "Spread of illness": "Soap and paper towels stocked. Unwell pupils sent home. Procedure for cleaning up bodily fluids, with gloves and a spill kit.", "Food allergies or food poisoning at events or snack time": "Allergen information for any food served. Food handlers have basic food hygiene training. Nut-free policy if needed.", "Unknown adult entering the building": "Single supervised entrance during sessions. Visitors sign in, wear a badge and are escorted. Staff challenge anyone they don\\'t recognise."};
@@ -347,6 +360,8 @@ var BRANCHES={
  Harlow:{ae:'Princess Alexandra Hospital, Hamstel Road, Harlow, CM20 1QX (24 hours; children\'s emergency department for 0-16s, next to the adult ED)',venue:'Passmores Academy\nTracyes Road, Harlow, Essex, CM18 6JH',type:'School',times:'Sat & Sun 8.45am - 12.15pm'},
  Slough:{ae:'Wexham Park Hospital, Wexham Street, Slough, SL2 4HL (24 hours, all ages)',venue:'Masjid Al Jannah\n1 Stoke Road, Slough, West Berkshire, SL2 5AH',type:'Mosque',times:'Sat & Sun 9am - 12.30pm'}
 };
+/* Explanations shown when staff tap the (i) next to a question */
+var INFO={"branch": "Choose your branch. The venue address, session times, venue type and nearest A&amp;E fill in automatically. Check them and correct anything that's wrong.", "venueType": "Decides which checks you see in step 3: school checks or mosque checks. It's set from your branch, but change it if your venue is different.", "venue": "The full name and address of the building, including the postcode. Staff need it to give to the ambulance or fire service in an emergency.", "venueContact": "The person at the venue who manages our booking, such as the lettings officer or site manager, and a phone number that works during our sessions. You'll need them if the alarm goes off, something breaks or the building has a problem.", "times": "The days and times we run at this venue. Some risks depend on timing, such as Dhuhr in winter at mosque venues or ice on winter mornings.", "ae": "The nearest hospital with a full 24-hour A&amp;E that treats children. Staff need this straight away if a child has to go to hospital. An urgent treatment centre is not the same as an A&amp;E.", "pupils": "Roughly how many pupils attend at once, and the youngest and oldest ages, for example \"85 pupils, 5 to 14\". This is used to check we have enough adults and to plan an evacuation.", "staff": "How many adults are on site in a typical session, counting teachers, admin and volunteers. Compare this with the number of pupils to check ratios.", "dsl": "The Designated Safeguarding Lead is the named person who deals with any child protection concern at this branch. The deputy covers when they're away. Every session needs one of them on site or reachable by phone.", "firstAiders": "Names of the trained first aiders usually on duty. There must be at least one every session, with paediatric first aid if you have children under 5.", "fireMarshal": "The person who leads an evacuation: checks rooms are empty, takes the register to the assembly point and speaks to the fire service.", "rooms": "List every room and area pupils use: classrooms, toilets, wudu area, hall, break area, playground. This assessment only covers the areas you list.", "otherHirers": "Any other group using the building while we're there, such as a football club or another class. This matters for safeguarding, shared toilets and the car park. Write \"None\" if there are none.", "venueRA": "Ask the venue or letting agent for their own risk assessment and fire plan. Ours sits on top of theirs, and we need their fire procedures and alarm details.", "assessor": "The branch lead who walked round the site and filled in this form. They're responsible for following up the actions.", "date": "The date you did the walk-round on site, during a real session.", "approver": "The Academy Head reviews and approves this assessment. Leave this blank if you're the branch lead; it's filled in once they've read it.", "sharedWith": "The name of the venue contact you sent a copy to. Venues expect to see hirers' risk assessments, and sharing it confirms we've agreed fire, first aid and car park arrangements with them.", "reviewDate": "When this assessment must be looked at again. Normally next term, or sooner if something changes or there's an incident.", "reason": "Why this assessment is being done now. A new venue needs a full assessment. After an incident or a change, focus on what changed.", "briefed": "<b>What to write:</b> the names of every staff member and volunteer who has been talked through this risk assessment, for example at the start-of-term briefing or inset day.<br><b>Why:</b> it only keeps children safe if the people on site know the hazards and what to do: the fire exits, collection rules, who the first aider and DSL are. This list is our record that each person was told, which the venue, our insurer or an inspector may ask for after an incident. Brief anyone who joins later and add their name.", "sig": "Your signature confirms you carried out this assessment on site and that the answers are accurate to the best of your knowledge."};
 var LOPTS=['Unlikely','Possible','Likely'], SOPTS=['Minor','Serious','Major'];
 var STATUS=[['in','In place','g'],['part','Partly','a'],['no','Not yet','r'],['na','N/A','n']];
 
@@ -637,14 +652,28 @@ $('pdfBtn').addEventListener('click',function(){
     finally{ btn.disabled=false; btn.textContent='Create PDF'; }
   },30);
 });
-$('shareBtn').addEventListener('click',function(){ if(!pdfBlob) return; navigator.share({files:[new File([pdfBlob],pdfName,{type:'application/pdf'})],title:'Weekend maktab risk assessment'}).catch(function(){}); });
+$('shareBtn').addEventListener('click',function(){ if(!pdfBlob) return; navigator.share({files:[new File([pdfBlob],pdfName,{type:'application/pdf'})],title:'Weekend maktab risk assessment',text:'Please send to management@safaracademy.org'}).catch(function(){}); });
 $('dlBtn').addEventListener('click',function(){ if(!pdfBlob) return; var url=URL.createObjectURL(pdfBlob),a=document.createElement('a'); a.href=url; a.download=pdfName; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){ URL.revokeObjectURL(url); },60000); });
 $('closeSheet').addEventListener('click',function(){ $('sheet').classList.remove('open'); });
 $('sheet').addEventListener('click',function(e){ if(e.target===this) this.classList.remove('open'); });
 
 /* ---------- init ---------- */
 function today(){ var n=new Date(); return new Date(n.getTime()-n.getTimezoneOffset()*60000).toISOString().slice(0,10); }
-function boot(){ if(!form.elements.date.value) form.elements.date.value=today(); renderCats(); renderVenue(); renderPre(); renderPhotos(); resetUI(); updateHeader(); requestAnimationFrame(function(){ growAll(); sizeCanvas(); }); }
+function addInfo(){ Object.keys(INFO).forEach(function(k){
+    var host=(k==='sig')?$('sigLabel'):(form.elements[k]&&form.elements[k].closest&&form.elements[k].closest('label.f'));
+    if(!host||host.querySelector('.i')) return;
+    var id='info-'+k, ic=document.createElement('span');
+    ic.className='i'; ic.textContent='i'; ic.setAttribute('role','button'); ic.tabIndex=0; ic.setAttribute('aria-label','What does this mean?'); ic.setAttribute('aria-expanded','false'); ic.setAttribute('aria-controls',id);
+    var field=host.querySelector('input,select,textarea');
+    var req=host.querySelector('.req'); var anchor=req||null;
+    if(anchor) anchor.after(ic); else if(field) host.insertBefore(ic,field); else host.appendChild(ic);
+    var box=document.createElement('div'); box.className='infoBox'; box.id=id; box.hidden=true; box.innerHTML=INFO[k];
+    if(field) host.insertBefore(box,field); else host.after(box);
+    function toggle(e){ e.preventDefault(); e.stopPropagation(); box.hidden=!box.hidden; ic.setAttribute('aria-expanded',String(!box.hidden)); }
+    ic.addEventListener('click',toggle); ic.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' ') toggle(e); });
+    box.addEventListener('click',function(e){ e.preventDefault(); });
+  }); }
+function boot(){ addInfo(); if(!form.elements.date.value) form.elements.date.value=today(); renderCats(); renderVenue(); renderPre(); renderPhotos(); resetUI(); updateHeader(); requestAnimationFrame(function(){ growAll(); sizeCanvas(); }); }
 boot();
 idbGet(STORE).then(function(s){ if(!s) return;
   applyFields(s.f); if(Array.isArray(s.reg)) reg=mergeReg(s.reg); if(Array.isArray(s.extra)&&s.extra.length===CATS.length) extra=s.extra;
