@@ -149,7 +149,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin:20px 0}
   <h2><span class="step">1</span>Site details</h2>
   <p class="hint">Complete this on site, during a real session, before the term starts. Your answers save on this device as you go.</p>
   <div class="two stack">
-    <label class="f">Branch <span class="req">*</span><input type="text" name="branch" id="branch" required></label>
+    <label class="f">Branch <span class="req">*</span><select name="branch" id="branch" required><option value="">Choose…</option><option>Edmonton</option><option>Enfield</option><option>Finchley</option><option>Harlow</option><option>Slough</option></select></label>
     <label class="f">Venue type
       <select name="venueType" id="venueType"><option value="">Choose…</option><option>School</option><option>Mosque</option></select>
     </label>
@@ -276,14 +276,17 @@ var CATS=[
   ['Children hit by vehicles in the car park or on the road outside','Pupils, parents, public','No parent drop-off in the car park at peak times. Marked walking route from the gate to the entrance. Adult in hi-vis at the main crossing point. Overflow parking named in parent emails. Agreed car park rules with the venue and other hirers.'],
   ['Children leaving with the wrong adult, or alone','Pupils','Younger pupils handed over to a named adult at the door. Collection list kept up to date, with photo ID or a password for any change. Older pupils allowed to walk home only with written consent.'],
   ['Child not collected at the end of the session','Pupils, staff','Two adults stay with the child. Call parents, then emergency contacts. Agreed time limit before contacting the DSL, and police or children\'s services if needed. Late collections logged.'],
-  ['Crowding at entrances and on stairs','Pupils, parents','Staggered start and finish by year group. Parents wait at a set point, not in corridors. One-way flow where possible.']]},
+  ['Crowding at entrances and on stairs','Pupils, parents','Staggered start and finish by year group. Each class has a set dismissal point. Parents wait at a set point, not in corridors. One-way flow where possible. Parents told pick-up times, where to park and where to queue, with a reminder each term.']]},
  {t:'Supervision and safeguarding',h:[
   ['Abuse or harm by staff, volunteers or others on site','Pupils','Enhanced DBS checks for all staff and regular volunteers. Safer recruitment, with two references. Safeguarding training on induction and yearly. Named DSL on site or on call every session. Code of conduct signed.'],
   ['One adult alone with a child out of sight','Pupils, staff','Classroom doors open or with glass panels. No one-to-one sessions out of view. Toilet trips in pairs or with an adult nearby, never inside.'],
-  ['Too few adults for the number of children','Pupils','Set minimum ratio for each age group. At least two adults in the building at all times. Register taken at the start, after breaks and at the end.'],
+  ['Too few adults for the number of children','Pupils','Set minimum ratio for each age group. Class sizes kept to about 15 to 17. Pupils stay in one room where possible to limit movement. At least two adults in the building at all times. Register taken at the start, after breaks and at the end.'],
   ['Child goes missing on site','Pupils','Doors to the outside supervised or locked from outside. Missing-child procedure known to all staff: search, lock down exits, call parents, call police within an agreed time.'],
   ['Corporal punishment or harsh discipline','Pupils','Written behaviour policy that bans physical punishment and humiliation. Parents told about the policy. Concerns reported to the DSL.'],
-  ['Inappropriate contact online or by phone','Pupils','Staff contact parents only through official channels. No private messaging with pupils. No photos of pupils without consent.']]},
+  ['Inappropriate contact online or by phone','Pupils','Staff contact parents only through official channels. No private messaging with pupils. No photos of pupils without consent.'],
+  ['Staff absence leaves a class without a teacher','Pupils, staff','List of cover teachers for the branch. Volunteers available to help supervise. Classes merged only if the ratio is still met. Staff tell the branch lead about absences as early as possible.'],
+  ['Pupils with SEND not supported in lessons or at break','Pupils with SEND','SEND needs recorded at enrolment and shared with the class teacher. Branch SEND lead supports teachers. Adjustments agreed with parents and reviewed each term.'],
+  ['Crowding or gaps in supervision at break time','Pupils','Each year group has its own break zone. Rota so every zone is supervised at all times. Year 1 (and Year 2 at some branches) take a separate break.']]},
  {t:'Fire and emergencies',h:[
   ['Fire, with people unable to get out','Everyone','Venue\'s fire plan obtained and followed. Fire exits and routes checked clear before every session. Fire marshal named for each session. Register and visitor log taken out at evacuation. Assembly point known to all. Fire drill each term.'],
   ['Fire alarm not heard or not understood','Pupils, visitors','Check the alarm can be heard in every room we use. Staff know how to raise the alarm and where the call points are.'],
@@ -304,14 +307,14 @@ var CATS=[
   ['Scalding from hot water taps','Pupils','Check the water temperature at wudu taps and sinks. Ask the venue to fit or confirm thermostatic mixing valves. Younger pupils supervised during wudu.'],
   ['Slipping during or after wudu','Pupils','Non-slip mats. Pupils sit on the wudu stools, not on the edge. Floors mopped regularly.'],
   ['Supervision gaps in toilets','Pupils','Separate boys\' and girls\' toilets where possible. Adult nearby, never inside with a child. Pupils not using toilets shared with adult members of the public unless supervised.'],
-  ['Spread of illness','Everyone','Soap and paper towels stocked. Unwell pupils sent home. Procedure for cleaning up bodily fluids, with gloves and a spill kit.']]},
+  ['Spread of illness','Everyone','Soap and paper towels stocked. Hand sanitiser at entrances and wash points, with handwashing posters. Supplies checked and topped up each session. Handwashing covered in staff and pupil briefings. Unwell pupils sent home. Procedure for cleaning up bodily fluids, with gloves and a spill kit.']]},
  {t:'Equipment, electricity and food',h:[
   ['Electric shock or fire from our own equipment (projectors, heaters, kettles)','Everyone','Our equipment PAT tested. Visual check of cables and plugs. No daisy-chained extension leads. Cables taped down or kept out of walkways.'],
   ['Portable heaters','Pupils','Avoid if possible. If used: guarded, away from curtains and coats, never left on unattended.'],
   ['Hot drinks and kettles','Pupils','Hot drinks only in the staff area, never carried through classrooms.'],
-  ['Food allergies or food poisoning at events or snack time','Pupils','Allergen information for any food served. Food handlers have basic food hygiene training. Nut-free policy if needed.']]},
+  ['Food allergies or food poisoning at events or snack time','Pupils','Allergen information for any food served. Food handlers have basic food hygiene training. No food sharing. No items containing nuts. Parents reminded to send healthy packed lunches without nuts.']]},
  {t:'Security and visitors',h:[
-  ['Unknown adult entering the building','Pupils','Single supervised entrance during sessions. Visitors sign in, wear a badge and are escorted. Staff challenge anyone they don\'t recognise.'],
+  ['Unknown adult entering the building','Pupils','Single supervised entrance during sessions. All staff and volunteers wear Safar lanyards at all times. Visitors sign in, wear a lanyard and are escorted beyond the admin desk. Parents stay at the admin desk unless invited in for a meeting. Staff challenge anyone they don\'t recognise, especially in spaces shared with other hirers.'],
   ['Threat from outside (aggressive person, hate incident)','Everyone','Lockdown procedure agreed with the venue: signal, where to go, how to call police. Practised once a year. Incidents reported to police and the venue.'],
   ['Personal data and registers lost or seen by others','Pupils, families','Registers and medical forms kept secure, not left in shared rooms. Digital records password-protected.']]},
  {t:'Staff and volunteers',h:[
@@ -322,15 +325,28 @@ var CATS=[
  {t:'Shared site and other hirers',h:[
   ['Other hirers\' users mixing with our pupils','Pupils','Our rooms and toilets separate where possible. Pupils escorted between areas. Know who else is on site and when.'],
   ['Unclear responsibility for fire, first aid or the car park','Everyone','Written agreement with the venue covering fire procedures, first aid, keys, alarms and car park rules. Venue contact reachable during sessions.'],
-  ['Rooms left unsafe by the previous hirer','Pupils','Check each room before pupils enter. Report problems to the venue in writing.']]},
+  ['Rooms left unsafe by the previous hirer','Pupils','Check each room before pupils enter. Report problems to the venue in writing.'],
+  ['Venue\'s own risk assessment and health and safety documents not obtained','Everyone','Ask the venue or letting agent for their risk assessment, fire plan and health and safety policy before the first session, and each year. Check their controls suit a children\'s education setting.'],
+  ['No valid public liability insurance','Everyone','Insurance renewed every year by Management. Copy of the current certificate kept at the branch and given to the venue.']]},
  {t:'Weather and outdoor areas',h:[
-  ['Ice, snow or darkness at arrival and home time','Everyone','Check the routes before opening. Ask the venue to grit. Lighting checked for winter afternoons. Plan for cancelling sessions and telling parents.'],
+  ['Ice or snow at arrival and home time','Everyone','Check the routes before opening. Ask the venue to grit. Plan for cancelling sessions and telling parents.'],
   ['Outdoor play at breaks (falls, equipment, leaving site)','Pupils','Only use areas agreed with the venue. Boundaries checked. At least one adult per area.'],
   ['Hot weather','Pupils','Water available. Rooms ventilated. Shade at breaks.']]}
 ];
-var SCHOOL=['Hire agreement read, covering which rooms, toilets and outdoor areas we may use','School\'s weekend fire plan, alarm system and assembly point confirmed','Who opens, locks up and sets the alarm, and their phone number on the day','Out-of-bounds areas (labs, PE equipment, kitchens, roof access) locked or marked','School equipment we may and may not use (projectors, sports kit)','Times and areas of other weekend hirers, and car park rules for all users','Where the school\'s defibrillator is, and whether we can use it','Damage and fault reporting route','Rooms put back as found, with a check before we leave'];
-var MOSQUE=['Agreement with the mosque committee on which rooms and times we use','How sessions fit around salah times: where pupils go and who supervises them when the prayer hall is in use','Separating pupils from adult congregants, especially in toilets, wudu areas and corridors','Fire plan, alarm and assembly point confirmed (some mosques have no linked alarm, so agree how to raise one)','Capacity on busy days (Jumu\'ah, Eid, janazah, events) and whether sessions are moved or cancelled','Wudu areas: water temperature, floor grip, supervision of younger pupils','Footwear areas kept clear of exits and stairs','Mosque\'s safeguarding policy and DSL, and how they link with ours','Who else holds keys, and who may enter during our sessions','Where the defibrillator is, if there is one'];
-var PRE=['Fire exits and escape routes clear and unlocked','First aider, fire marshal and DSL (or deputy on call) named for today','First aid kit and medicines in place','Rooms, toilets and wudu areas checked: floors dry, nothing broken, water not too hot','Enough adults for the expected number of pupils','Car park duty and walking route set up (cones, hi-vis)','Registers, collection lists and medical and allergy lists to hand','Visitor sign-in ready, and outside doors supervised','Know who else is on site today'];
+var SCHOOL=['Hire agreement read, covering which rooms, toilets and outdoor areas we may use','School\'s weekend fire plan, alarm system and assembly point confirmed','Who opens, locks up and sets the alarm, and their phone number on the day','Out-of-bounds areas (labs, PE equipment, kitchens, roof access) locked or marked','School equipment we may and may not use (projectors, sports kit)','Times and areas of other weekend hirers, and car park rules for all users','Where the school\'s defibrillator is, and whether we can use it','Damage and fault reporting route','Rooms put back as found, with a check before we leave','School\'s own risk assessment and health and safety policy received','Copy of our public liability insurance certificate given to the school'];
+var MOSQUE=['Agreement with the mosque committee on which rooms and times we use','Dhuhr in winter (about 11.50am to 12.15pm, November to February): congregants arriving during dismissal, and pupils kept out of the prayer hall and wudu areas','Separating pupils from adult congregants, especially in toilets, wudu areas and corridors','Fire plan, alarm and assembly point confirmed (some mosques have no linked alarm, so agree how to raise one)','Weekend janazah, nikah or other mosque events: how we hear about them in time, and keeping pupils apart from adult crowds in corridors, toilets and the car park. Eid on a weekend: closure agreed and parents told in good time','Wudu areas: water temperature, floor grip, supervision of younger pupils','Footwear areas kept clear of exits and stairs','Mosque\'s safeguarding policy and DSL, and how they link with ours','Who else holds keys, and who may enter during our sessions','Where the defibrillator is, if there is one','Mosque\'s own risk assessment and health and safety policy received','Copy of our public liability insurance certificate given to the mosque'];
+var PRE=['Fire exits and escape routes clear and unlocked','First aider, fire marshal and DSL (or deputy on call) named for today','First aid kit and medicines in place','Rooms, toilets and wudu areas checked: floors dry, nothing broken, water not too hot','Enough adults for the expected number of pupils','Car park duty and walking route set up (cones, hi-vis)','Registers, collection lists and medical and allergy lists to hand','Visitor sign-in ready, and outside doors supervised','Know who else is on site today','Hand sanitiser, soap and paper towels stocked','Break zones and supervision rota set for today','All staff and volunteers wearing lanyards'];
+/* Control wording before the Nov 2026 update, so saved drafts pick up the new wording unless the user edited it */
+var HZ_ALIAS={'Ice or snow at arrival and home time':'Ice, snow or darkness at arrival and home time'};
+var OLD_CTRL={'Ice or snow at arrival and home time':'Check the routes before opening. Ask the venue to grit. Lighting checked for winter afternoons. Plan for cancelling sessions and telling parents.',"Crowding at entrances and on stairs": "Staggered start and finish by year group. Parents wait at a set point, not in corridors. One-way flow where possible.", "Too few adults for the number of children": "Set minimum ratio for each age group. At least two adults in the building at all times. Register taken at the start, after breaks and at the end.", "Spread of illness": "Soap and paper towels stocked. Unwell pupils sent home. Procedure for cleaning up bodily fluids, with gloves and a spill kit.", "Food allergies or food poisoning at events or snack time": "Allergen information for any food served. Food handlers have basic food hygiene training. Nut-free policy if needed.", "Unknown adult entering the building": "Single supervised entrance during sessions. Visitors sign in, wear a badge and are escorted. Staff challenge anyone they don\\'t recognise."};
+/* Branch details filled in when a branch is chosen. Fields stay editable. */
+var BRANCHES={
+ Edmonton:{ae:'North Middlesex University Hospital, Sterling Way, London, N18 1QX (24 hours, all ages)',venue:'Edmonton Islamic Centre\n20-34 Raynham Road, London, N18 2SJ',type:'Mosque',times:'Sat & Sun 8.30am - 12pm'},
+ Enfield:{ae:'North Middlesex University Hospital, Sterling Way, London, N18 1QX (24 hours, all ages). Chase Farm Hospital has an urgent treatment centre only, not a full A&E.',venue:'Enfield County School\nHolly Walk, Enfield, EN2 6QG',type:'School',times:'Sat & Sun 8.30am - 12pm'},
+ Finchley:{ae:'Barnet Hospital, Wellhouse Lane, Barnet, EN5 3DJ (24 hours, all ages)',venue:'IANL\n685 High Road, London, N12 0DA',type:'Mosque',times:'Sat & Sun 8.30am - 12pm'},
+ Harlow:{ae:'Princess Alexandra Hospital, Hamstel Road, Harlow, CM20 1QX (24 hours; children\'s emergency department for 0-16s, next to the adult ED)',venue:'Passmores Academy\nTracyes Road, Harlow, Essex, CM18 6JH',type:'School',times:'Sat & Sun 8.45am - 12.15pm'},
+ Slough:{ae:'Wexham Park Hospital, Wexham Street, Slough, SL2 4HL (24 hours, all ages)',venue:'Masjid Al Jannah\n1 Stoke Road, Slough, West Berkshire, SL2 5AH',type:'Mosque',times:'Sat & Sun 9am - 12.30pm'}
+};
 var LOPTS=['Unlikely','Possible','Likely'], SOPTS=['Minor','Serious','Major'];
 var STATUS=[['in','In place','g'],['part','Partly','a'],['no','Not yet','r'],['na','N/A','n']];
 
@@ -338,6 +354,7 @@ var STATUS=[['in','In place','g'],['part','Partly','a'],['no','Not yet','r'],['n
 function freshReg(){ return CATS.map(function(c){ return c.h.map(function(h){ return {hazard:h[0],who:h[1],controls:h[2],status:'',L:'',S:'',actions:'',owner:'',due:'',rL:'',rS:''}; }); }); }
 var reg=freshReg(), extra=CATS.map(function(){return [];}), venueAns={}, preAns={}, photos=[], sigData=null, openCats={0:true};
 var form=document.getElementById('f');
+function mergeReg(saved){ var fresh=freshReg(); return fresh.map(function(rows,ci){ var old=(saved[ci]||[]).filter(Boolean); return rows.map(function(r){ var m=null; old.forEach(function(o){ if(o.hazard===r.hazard||o.hazard===HZ_ALIAS[r.hazard]) m=o; }); if(!m) return r; var keep=(m.controls===OLD_CTRL[r.hazard])?r.controls:m.controls; return Object.assign({},m,{hazard:r.hazard,controls:keep}); }); }); }
 function $(id){ return document.getElementById(id); }
 function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
 function grow(el){ if(!el||el.tagName!=='TEXTAREA') return; el.style.height='auto'; el.style.height=(el.scrollHeight+2)+'px'; }
@@ -455,10 +472,15 @@ function collect(){ var d={}; Array.prototype.forEach.call(form.elements,functio
 var t;
 function saveSoon(){ clearTimeout(t); t=setTimeout(save,400); }
 function save(){ return idbSet(STORE,{f:collect(),reg:reg,extra:extra,venueAns:venueAns,preAns:preAns,photos:photos,sig:sigData,at:Date.now()}).then(function(ok){ setStatus(ok?'Draft saved on this device '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}):'Could not save a draft. Keep this page open until you create the PDF.',!ok); }); }
-function applyFields(f){ Object.keys(f||{}).forEach(function(k){ var el=form.elements[k]; if(el && el.type!=='file' && !el.length) el.value=f[k]; else if(el && el.tagName==='SELECT') el.value=f[k]; }); }
+function applyFields(f){ var bs=form.elements.branch, bv=(f||{}).branch; if(bv && !Array.prototype.some.call(bs.options,function(o){return o.value===bv;})){ var o=document.createElement('option'); o.textContent=bv; bs.appendChild(o); }
+  Object.keys(f||{}).forEach(function(k){ var el=form.elements[k]; if(el && el.type!=='file' && !el.length) el.value=f[k]; else if(el && el.tagName==='SELECT') el.value=f[k]; }); }
 
 form.addEventListener('input',function(e){ if(e.target.name && !e.target.closest('.hz,.chk')){ e.target.classList.remove('invalid'); saveSoon(); updateHeader(); } });
-form.addEventListener('change',function(e){ if(e.target.name==='venueType'){ renderVenue(); } if(e.target.name && !e.target.closest('.hz,.chk')) saveSoon(); });
+function isPrefill(field,val){ val=String(val||'').trim(); if(!val) return true; return Object.keys(BRANCHES).some(function(k){ return BRANCHES[k][field]===val; }); }
+function fillBranch(){ var b=BRANCHES[form.elements.branch.value]; if(!b) return;
+  [['venue','venue'],['times','times'],['venueType','type'],['ae','ae']].forEach(function(p){ var el=form.elements[p[0]]; if(isPrefill(p[1],el.value)){ el.value=b[p[1]]; el.classList.remove('invalid'); } });
+  grow(form.elements.venue); renderVenue(); }
+form.addEventListener('change',function(e){ if(e.target.name==='branch'){ fillBranch(); updateHeader(); } if(e.target.name==='venueType'){ renderVenue(); } if(e.target.name && !e.target.closest('.hz,.chk')) saveSoon(); });
 function updateHeader(){ var b=form.elements.branch.value.trim(); var v=form.elements.venue.value.trim().split('\n')[0]; $('hdrSite').textContent='Safar Academy'+(b?' · '+b+' branch':'')+(v?' · '+v:''); }
 
 function resetUI(){ var box=$('resetBox'); box.innerHTML='<button type="button" class="btn danger" id="resetAsk">Clear form and start again</button>';
@@ -625,7 +647,7 @@ function today(){ var n=new Date(); return new Date(n.getTime()-n.getTimezoneOff
 function boot(){ if(!form.elements.date.value) form.elements.date.value=today(); renderCats(); renderVenue(); renderPre(); renderPhotos(); resetUI(); updateHeader(); requestAnimationFrame(function(){ growAll(); sizeCanvas(); }); }
 boot();
 idbGet(STORE).then(function(s){ if(!s) return;
-  applyFields(s.f); if(Array.isArray(s.reg)&&s.reg.length===CATS.length) reg=s.reg; if(Array.isArray(s.extra)&&s.extra.length===CATS.length) extra=s.extra;
+  applyFields(s.f); if(Array.isArray(s.reg)) reg=mergeReg(s.reg); if(Array.isArray(s.extra)&&s.extra.length===CATS.length) extra=s.extra;
   venueAns=s.venueAns||{}; preAns=s.preAns||{}; photos=s.photos||[]; sigData=s.sig||null;
   $('venueChecks').onchange=null; boot(); setStatus('Draft restored from this device'); });
 var lastW=window.innerWidth; window.addEventListener('resize',function(){ if(window.innerWidth!==lastW){ lastW=window.innerWidth; sizeCanvas(); growAll(); } });
